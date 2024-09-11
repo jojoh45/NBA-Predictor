@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>NBA Team Predictor</title>
+        <link rel="stylesheet" href="styles/style.css">
+    </head>
+
+
+    <body>
+        <form action="/prediction" method="POST">
+            <div class="title">
+                <h1>
+                    NBA Match Predictor
+                </h1>
+            </div>
+
+            <div class="container">
+                <div class="player-select">
+                    <h2>Player 1</h2>
+                    <input type="text" name="First-FN" placeholder="First Name">
+                    <input type="text" name="First-LN" placeholder="Last Name">
+                </div>  
+
+                <div class="player-select">
+                    <h2>Player 2</h2>
+                    <input type="text" name="Second-FN" placeholder="First Name">
+                    <input type="text" name="Second-LN" placeholder="Last Name">
+                </div>    
+            </div>  
+
+            <div class="button-div">
+                <input type="submit" value="Predict"></input>
+            </div>
+        </form>
+
+        <% if (locals.winner) {%>
+            <div><h3>The winner is <%= winner %></h3></div>
+        <% } else { %>
+            <div><h3>Choose two players to see who wins!</h3></div>
+        <% } %>
+    </body>
+</html>

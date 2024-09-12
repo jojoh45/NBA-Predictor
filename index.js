@@ -22,13 +22,15 @@ async function getPlayerId(playerFN, playerLN) {
             headers: {Authorization: process.env.API_KEY}
         });
         const player = response.data.data[0];
+        const fullTeamName = player.team.full_name
+        console.log("The team",fullTeamName);
         if (player) {
-            return player.id;
+            return {playerId: player.id, playerTeam: fullTeamName};
         } else {
-            throw new Error(`Player ${playerFN + " " + playerLN} not found`);
+            throw new Error(`Player ${playerFN + " " + playerLN + " " + fullTeamName} not found`);
         }
     } catch (error) {
-        console.error(`Error fetching player ID for ${playerFN + " " + playerLN}:`, error.message);
+        console.error(`Error fetching player ID for ${playerFN + " " + playerLN + " " + fullTeamName}:`, error.message);
     }
 }
 
@@ -55,22 +57,25 @@ async function comparePlayers(player1FN, player1LN, player2FN, player2LN) {
         // Get player IDs
         const player1Id = await getPlayerId(player1FN, player1LN);
         const player2Id = await getPlayerId(player2FN, player2LN);
+        //console.log(player1Id.team);
+        //console.log(player2Id.team);
 
         // Get player points
-        const player1Pts = await getPlayerStats(player1Id);
-        const player2Pts = await getPlayerStats(player2Id);
+        const player1Pts = await getPlayerStats(player1Id.playerId);
+        const player2Pts = await getPlayerStats(player2Id.playerId);
 
         if (player1Pts > player2Pts) {
-            console.log(`${player1FN + " " + player1LN} has more points (${player1Pts}) than ${player2FN + " " + player2LN} (${player2Pts}).`);
-            const name = player1FN + " " + player1LN
+            console.log(`${player1FN + " " + player1LN  + " " + player1Id.playerTeam} has more points (${player1Pts}) than ${player2FN + " " + player2LN  + " " + player2Id.playerTeam} (${player2Pts}).`);
+            const name = player1FN + " " + player1LN + " " + player1Id.playerTeam;
             return name
         } else if (player2Pts > player1Pts) {
-            console.log(`${player2FN + " " + player2LN} has more points (${player2Pts}) than ${player1FN + " " + player1LN} (${player1Pts}).`);
-            const name = player2FN + " " + player2LN
+            console.log(`${player2FN + " " + player2LN  + " " + player2Id.playerTeam} has more points (${player2Pts}) than ${player1FN + " " + player1LN + " " + player1Id.playerTeam} (${player1Pts}).`);
+            const name = player2FN + " " + player2LN  + " " + player2Id.playerTeam;
             return name
         } else {
-            console.log(`${player1FN + " " + player1LN} and ${player2FN + " " + player2LN} have the same points (${player1Pts}).`);
-            const name = `${player1FN + " " + player1LN} and ${player2FN + " " + player2LN} have the same points (${player1Pts}).`
+            console.log(`${player1FN + " " + player1LN + " " + player1Id.playerTeam} and ${player2FN + " " + player2LN  + " " + player2Id.playerTeam} have the same points (${player1Pts}).`);
+
+            const name = `${player1FN + " " + player1LN  + " " + player1Id.playerTeam} and ${player2FN + " " + player2LN  + " " + player2Id.playerTeam} have the same points (${player1Pts}).`
             return name
         }
     } catch (error) {
@@ -87,7 +92,7 @@ app.post("/prediction", async (req, res) => {
 
     try {
         const name = await comparePlayers(firstPlayerFN, firstPlayerLN, secondPlayerFN, secondPlayerLN);
-        console.log(name);
+        //console.log(name);
         res.render("index.ejs", {winner: name});
     } catch (error){
         console.log("Please enter a valid NBA player name");

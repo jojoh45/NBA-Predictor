@@ -67,8 +67,22 @@ input[type="submit"] {
     transition: background-color 0.3s ease;
 }
 
+a > img {
+    height: 30px;
+    border-radius: 100%;
+}
+
+a > img:hover {
+    box-shadow: 7px 11px 30px -8px rgba(0, 0, 0, 0.75)
+}
+
+
 input[type="submit"]:hover {
     background-color: #1d3557;
+}
+
+p {
+    color: #cacaca;
 }
 
 /* Title and Headers */
@@ -108,4 +122,13 @@ h3 {
     input[type="text"] {
         width: 100%;
     }
+
+    form {
+        margin-top: 40px;
+    }
 }
+
+.nba-logo {
+    float: left;
+}
+

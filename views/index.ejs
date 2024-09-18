@@ -4,11 +4,19 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>NBA Team Predictor</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" >
         <link rel="stylesheet" href="styles/style.css">
     </head>
 
-
     <body>
+        <nav class="navbar fixed-top">
+            <div class="container-fluid">
+              <a href="/"><img src="data:image/png;base64,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" alt="" class="nba-logo"></a>
+
+              <a href="https://github.com/jojoh45/nba-predictor" target="_blank"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub Logo" class="github-logo"></a>
+            </div>
+          </nav>
+
         <form action="/prediction" method="POST">
             <div class="title">
                 <h1>
@@ -38,12 +46,12 @@
         <% if (locals.winner) {%>
             <div><h3>The winner is <%= winner %></h3></div>
         <% } else { %>
-            <div><h3>Choose two players to see who wins!</h3></div>
+            <div><h3>Enter two players to see who wins!</h3></div>
         <% } %>
 
         <div>
             <p>
-                Based on the 2023-2024 regular season
+                Based on the 2023-2024 regular season & Points Per Game (PPG)
             </p>
         </div>
     </body>

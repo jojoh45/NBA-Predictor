@@ -14,7 +14,7 @@ const port = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-app.set('views', path.join(__dirname, './views'));
+app.set('views', path.join(__dirname, './views/index.ejs'));
 
 // Function to get player ID based on player's name
 async function getPlayerId(playerFN, playerLN) {

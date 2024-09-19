@@ -66,13 +66,24 @@ async function comparePlayers(player1FN, player1LN, player2FN, player2LN) {
 
         if (player1Pts > player2Pts) {
             console.log(`${player1FN + " " + player1LN  + " " + player1Id.playerTeam} has more points (${player1Pts}) than ${player2FN + " " + player2LN  + " " + player2Id.playerTeam} (${player2Pts}).`);
-            const name = player1FN + " " + player1LN + " " + player1Id.playerTeam;
+            const name = "The winner is " + player1FN + " " + player1LN + " " + player1Id.playerTeam;
             return name
         } else if (player2Pts > player1Pts) {
             console.log(`${player2FN + " " + player2LN  + " " + player2Id.playerTeam} has more points (${player2Pts}) than ${player1FN + " " + player1LN + " " + player1Id.playerTeam} (${player1Pts}).`);
-            const name = player2FN + " " + player2LN  + " " + player2Id.playerTeam;
+            const name = "The winner is " + player2FN + " " + player2LN  + " " + player2Id.playerTeam;
             return name
         } else {
+
+            if (!player1Pts) {
+                const name = `${player1FN + " " + player1LN + "points does not exists"}`;
+                return name;
+            }
+
+            if (!player2Pts) {
+                const name = `${player2FN + " " + player2LN + "points does not exists"}`;
+                return name;
+            }
+
             console.log(`${player1FN + " " + player1LN + " " + player1Id.playerTeam} and ${player2FN + " " + player2LN  + " " + player2Id.playerTeam} have the same points (${player1Pts}).`);
 
             const name = `${player1FN + " " + player1LN  + " " + player1Id.playerTeam} and ${player2FN + " " + player2LN  + " " + player2Id.playerTeam} have the same points (${player1Pts}).`
@@ -80,6 +91,8 @@ async function comparePlayers(player1FN, player1LN, player2FN, player2LN) {
         }
     } catch (error) {
         console.error('Error comparing players:', error.message);
+        //console.log("Please enter a valid NBA player name");
+        res.render("index.ejs", {invalidInput: "Please enter a current/valid NBA player"})
     }
 }
 
@@ -96,6 +109,7 @@ app.post("/prediction", async (req, res) => {
         res.render("index.ejs", {winner: name});
     } catch (error){
         console.log("Please enter a valid NBA player name");
+        res.render("index.ejs", {invalidInput: "Please enter a current/valid NBA player"})
     }  
 });
 

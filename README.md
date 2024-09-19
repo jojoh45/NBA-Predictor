@@ -76,6 +76,10 @@ To run this project locally, you need to have:
 ## API Used
 - **[balldontlie API](https://www.balldontlie.io/#get-all-players)**: Provides NBA player data, including player stats, teams, and IDs.
 
+## **Live Screenshot**
+<img width="1440" alt="Screen Shot 2024-09-19 at 7 24 29 PM" src="https://github.com/user-attachments/assets/daf51191-6832-4af8-a27f-e899839d4b1a">
+
+
 ## License
 This project is open-source and available under the [MIT License](LICENSE).
 
